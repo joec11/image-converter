@@ -1,16 +1,15 @@
-from fastapi import APIRouter, HTTPException, File, UploadFile, Form
-from fastapi.responses import JSONResponse
+# Standard Library Imports
 from io import BytesIO
-from PIL import Image
 import logging
 import os
 
-# Local imports
-from app.dependencies import get_settings
+# Third-Party Library Imports
+from fastapi import APIRouter, HTTPException, File, UploadFile, Form
+from fastapi.responses import JSONResponse
+from PIL import Image
 
-# Initialize the API router and settings
+# Initialize the API router
 router = APIRouter()
-settings = get_settings()
 
 # Route to convert images to the specified format
 @router.post("/convert")
