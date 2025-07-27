@@ -1,0 +1,48 @@
+1. JPEG (.jpg, .jpeg)
+
+   * Common for photos and web images.
+   * Good balance of quality and file size.
+
+2. PNG (.png)
+
+   * Supports transparency.
+   * Great for logos, icons, and images with sharp edges.
+
+3. GIF (.gif)
+
+   * Supports simple animations.
+   * Limited to 256 colors.
+
+4. BMP (.bmp)
+
+   * Bitmap format, often large file sizes.
+   * Older format, less commonly used today.
+
+5. TIFF (.tiff, .tif)
+
+   * High-quality, often used in professional photography and printing.
+   * Can support multiple layers.
+
+6. WebP (.webp)
+
+   * Newer format with excellent compression.
+   * Supported by modern web browsers.
+
+7. SVG (.svg)
+
+   * Scalable Vector Graphics.
+   * Ideal for logos, illustrations, and web graphics.
+
+8. HEIF (.heif, .heic)
+
+   * High Efficiency Image Format.
+   * Used by newer devices (like iPhones), supports better compression than JPEG.
+
+9. RAW (.raw, .cr2, .nef, etc.)
+
+   * Used by cameras to store unprocessed image data.
+   * High-quality, often needs editing before use.
+
+10. ICO (.ico)
+
+* Icon format used for website favicons and desktop icons.
