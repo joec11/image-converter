@@ -1,0 +1,24 @@
+# Byte-compiled files
+_*pycache*_
+
+# Virtual environment directory
+venv/
+
+# Database files
+*.db
+*.sqlite
+
+# Logs
+logs/
+
+# Coverage reports
+.coverage
+
+# VSCode settings
+.vscode/
+
+# Environment configuration
+.env
+
+# QR code directory
+qr_codes/
