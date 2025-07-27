@@ -1,8 +1,13 @@
-# FastAPI imports
+# Standard Library Imports
+from pathlib import Path
+
+# Third-Party Library Imports
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 
-# Local imports
+# Local Module Imports
 from app.shared import logging
 from app.routers import ui_routes, image_converter_routes
 
@@ -20,6 +25,12 @@ app = FastAPI(
         "url": "https://opensource.org/licenses/MIT"
     },
 )
+
+# Make files in the 'static' directory available at the '/static' URL path
+app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
+
+# Configure Jinja2Templates for rendering HTML templates
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 # Configure CORS middleware to allow requests from specified origins
 app.add_middleware(
