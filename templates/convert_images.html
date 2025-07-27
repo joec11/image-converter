@@ -1,0 +1,167 @@
+{% extends "layout.html" %}
+
+{% block title %}Image Converter{% endblock %}
+
+{% block content %}
+<h1>Convert Images</h1>
+<script>
+    function convert_images(event) {
+        event.preventDefault();
+
+        // Show the loading spinner
+        document.getElementById('loading_spinner').style.display = 'inline-block';
+
+        const fileInput = document.getElementById('imageFile');
+        const toFormat = document.getElementById('convertToFormat').value;
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('toFormat', toFormat);
+
+        fetch('/convert', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide the loading spinner
+            document.getElementById('loading_spinner').style.display = 'none';
+            
+            // Display the result on the page
+            if (data) {
+                document.getElementById('result_response').textContent = data.formatConvert_response;
+                document.getElementById('result_container').style.display = 'block'; // Show the result container
+            } else {
+                alert('Image Conversion failed.');
+            }
+        })
+        .catch(error => {
+            // Hide the loading spinner
+            document.getElementById('loading_spinner').style.display = 'none';
+
+            console.error('Error:', error);
+            alert('An error occurred during Image Conversion.');
+        });
+    }
+</script>
+
+<form onsubmit="convert_images(event)" enctype="multipart/form-data">
+    <label for="file">Choose file:</label>
+    <input type="file" id="imageFile" name="file" required>
+    <br><br>
+
+    <label for="convertToFormat">Choose a format:</label>
+    <select id="convertToFormat" name="toFormat" required>
+        <option value="" selected disabled>Select</option>
+        <option value="bmp">BMP (.bmp)</option>
+        <option value="gif">GIF (.gif)</option>
+        <option value="heif">HEIF (.heif)</option>
+        <option value="heic">HEIF (.heic)</option>
+        <option value="ico">ICO (.ico)</option>
+        <option value="jpg">JPEG (.jpg)</option>
+        <option value="jpeg">JPEG (.jpeg)</option>
+        <option value="png">PNG (.png)</option>
+        <option value="raw">RAW (.raw)</option>
+        <option value="cr2">RAW (.cr2)</option>
+        <option value="nef">RAW (.nef)</option>
+        <option value="svg">SVG (.svg)</option>
+        <option value="tiff">TIFF (.tiff)</option>
+        <option value="tif">TIFF (.tif)</option>
+        <option value="webp">WebP (.webp)</option>
+    </select>
+    <br><br>
+    <button type="submit" class="submit-button">Submit</button>
+    <!-- Loading Spinner -->
+    <div id="loading_spinner" style="display:none; margin-left: 10px; vertical-align: middle;">
+        <div class="spinner"></div>
+    </div>
+</form>
+
+<!-- Result Container -->
+<div id="result_container" style="display:none; margin-top: 20px;">
+    <div class="result-item">
+        <p><strong>Conversion Summary:</strong></p>
+        <pre id="result_response" class="result-content"></pre>
+    </div>
+</div>
+
+<style>
+
+    body {
+        background-color: #f7f7f7;
+    }
+    
+    /**************** Convert to Format Input ********************/
+    #convertToFormat {
+        border: 2px solid #000;
+        padding: 10px;
+        border-radius: 4px;
+    }
+    /******** End of Convert to Format Input *********************/
+
+    /*********************** Result ******************************/
+    .result-item {
+        margin-bottom: 15px;
+    }
+
+    .result-content {
+        white-space: pre-wrap; /* Preserves whitespace and line breaks */
+        background-color: #ffffff;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: auto; /* Allows scrolling if content overflows */
+    }
+    /**************** End of Result ******************************/
+
+    /*********************** Spinner *****************************/
+    /* Spinner Styles */
+    .spinner {
+        border: 3px solid #ffffff; /* White */
+        border-top: 3px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    /**************** End of Spinner *****************************/
+
+    /*********************** Submit Button ***********************/
+    /* Style for the submit button */
+    .submit-button {
+        background-color: #3498db; /* Blue background color */
+        color: #ffffff; /* White text color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 6px 12px; /* Vertical and horizontal padding */
+        font-size: 12px; /* Text size */
+        font-weight: bold; /* Bold text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for background and shadow */
+    }
+
+    /* Hover effect */
+    .submit-button:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+    }
+
+    /* Focus effect */
+    .submit-button:focus {
+        outline: none; /* Remove default focus outline */
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5); /* Blue shadow for focus */
+    }
+
+    /* Disabled state */
+    .submit-button:disabled {
+        background-color: #bdc3c7; /* Grey background */
+        cursor: not-allowed; /* Not-allowed cursor */
+        opacity: 0.7; /* Slightly transparent */
+    }
+    /**************** End of Submit Button ***********************/
+</style>
+{% endblock %}
