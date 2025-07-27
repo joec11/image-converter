@@ -1,4 +1,4 @@
-# Local imports
+# Local Module Imports
 from app.utils.common import setup_logging
 
 # Set up logging configuration
